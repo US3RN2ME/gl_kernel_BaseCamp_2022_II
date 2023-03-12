@@ -28,7 +28,7 @@ static int chrdev_major;
 static int chrdev_is_open;
 
 static int chrdev_buffer_size;
-static unsigned char chrdev_buffer[BUFFER_SIZE];
+static unsigned char chrdev_buffer[CHRDEV_BUFFER_SIZE];
 
 /*===============================================================================================*/
 static int chrdev_open(struct inode *inode, struct file *file)
@@ -63,7 +63,7 @@ static struct file_operations chrdev_fops = {
     .write = chrdev_write,
 };
 /*===============================================================================================*/
-static int chrdev_module_init(void)
+static int __init chrdev_module_init(void)
 {
 	pr_info("module init\n");
 
@@ -105,7 +105,7 @@ cdev_add_err:
 	return -1;
 }
 /*===============================================================================================*/
-static void chrdev_module_exit(void)
+static void __exit chrdev_module_exit(void)
 {
 	pr_info("module exit\n");
 	device_destroy(chrdev_class, chrdev_dev);
